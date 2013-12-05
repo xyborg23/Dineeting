@@ -1,7 +1,10 @@
 package com.example.testapplication;
 
 import android.annotation.SuppressLint;
+import android.content.ContentResolver;
 import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.support.v4.app.LoaderManager;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
@@ -16,9 +19,17 @@ import android.os.Build;
 import android.provider.ContactsContract;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
 
-public class ContactsActivity extends ActionBarActivity {
+import java.util.ArrayList;
+import java.util.List;
+
+public class ContactsActivity extends ActionBarActivity implements AdapterView.OnItemClickListener {
+
+    String checkname;
 
     @SuppressLint("NewApi")
     @Override
@@ -27,10 +38,10 @@ public class ContactsActivity extends ActionBarActivity {
         setContentView(R.layout.activity_contacts);
 
         Intent intent = getIntent();
-        String name = intent.getStringExtra(MainActivity.NAME_KEY);
+        checkname = intent.getStringExtra(MainActivity.NAME_KEY);
+        checkname = checkname.toLowerCase();
 
-        Cursor mCursor = getContentResolver().query(Data.CONTENT_URI, null, null, null, Data.DISPLAY_NAME);
-
+        fetchContacts();
     }
 
 
@@ -54,5 +65,39 @@ public class ContactsActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    public void fetchContacts() {
+
+        List<String> items = new ArrayList<String>();
+
+        Uri CONTENT_URI = ContactsContract.Contacts.CONTENT_URI;
+        String _ID = ContactsContract.Contacts._ID;
+        String DISPLAY_NAME = ContactsContract.Contacts.DISPLAY_NAME;
+
+        ContentResolver contentResolver = getContentResolver();
+
+        Cursor cursor = contentResolver.query(CONTENT_URI, null,null, null, null);
+        ListView list = (ListView) findViewById(android.R.id.list);
+
+        // Loop for every contact in the phone
+        if (cursor.getCount() > 0) {
+
+            while (cursor.moveToNext()) {
+
+                String contact_id = cursor.getString(cursor.getColumnIndex( _ID ));
+                String name = cursor.getString(cursor.getColumnIndex( DISPLAY_NAME ));
+                if(name.toLowerCase().contains(checkname))
+                    items.add(name);
+            }
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, items);
+
+            list.setAdapter(adapter);
+            list.setOnItemClickListener(this);
+        }
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+    }
 
 }
