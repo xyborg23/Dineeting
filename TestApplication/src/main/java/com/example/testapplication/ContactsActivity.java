@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.net.Uri;
 import android.support.v4.app.LoaderManager;
 import android.support.v7.app.ActionBarActivity;
@@ -20,16 +21,21 @@ import android.provider.ContactsContract;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ContactsActivity extends ActionBarActivity implements AdapterView.OnItemClickListener {
+public class ContactsActivity extends ActionBarActivity {
 
     String checkname;
+    private static int save = -1;
+    ArrayList<String> friends = new ArrayList<String>();
+    public final static String INFO_KEY = "com.example.testapplication.INFO";
 
     @SuppressLint("NewApi")
     @Override
@@ -91,13 +97,33 @@ public class ContactsActivity extends ActionBarActivity implements AdapterView.O
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, items);
 
             list.setAdapter(adapter);
-            list.setOnItemClickListener(this);
+            list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                ArrayList<Integer> pos = new ArrayList<Integer>();
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position,long arg3) {
+
+                    String contactname = ((TextView) view).getText().toString();
+                    if(!pos.contains(position))
+                    {
+                        parent.getChildAt(position).setBackgroundColor(Color.YELLOW);
+                        pos.add(position);
+                        friends.add(contactname);
+                    }
+                    else
+                    {
+                        parent.getChildAt(position).setBackgroundColor(Color.TRANSPARENT);
+                        pos.remove(position);
+                        friends.remove(contactname);
+                    }
+                }
+            });
         }
     }
+    public void submitInfo(View view) {
+        // Do something in response to button
 
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+        Intent intent = new Intent(this, InfoActivity.class);
+        intent.putStringArrayListExtra(INFO_KEY, friends);
+        startActivity(intent);
     }
-
 }
