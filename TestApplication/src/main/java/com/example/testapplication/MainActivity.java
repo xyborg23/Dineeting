@@ -63,4 +63,10 @@ public class MainActivity extends ActionBarActivity {
         startActivity(intent);
 
     }
+
+    public void meetingTime(View v) {
+        Intent intent = new Intent(this, MeetingTimeActivity.class);
+        intent.putExtras(getIntent());
+        startActivity(intent);
+    }
 }
