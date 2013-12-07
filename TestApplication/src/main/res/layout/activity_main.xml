@@ -41,5 +41,12 @@
         android:onClick="submitMessage"
         android:layout_gravity="center_horizontal|bottom" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Open meeting time"
+        android:id="@+id/temp_button"
+        android:onClick="meetingTime" />
+
 </LinearLayout>
 
