@@ -1,23 +1,22 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-
-    <ListView
-        android:id="@android:id/list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:background="@drawable/bg_key"/>
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
 
     <Button
-        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0"
-        android:text="Submit"
-        android:onClick="submitInfo"
-        android:id="@+id/button" />
+        android:layout_width="fill_parent"
+        android:text="Choose Restaurant"
+        android:onClick="chooseRestaurant"
+        android:id="@+id/button1"/>
+
+    <Button
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:text="Poll Friends"
+        android:onClick="pollingFriends"
+        android:id="@+id/button2"/>
 
     <RelativeLayout
         android:layout_height="wrap_content"
@@ -40,9 +39,8 @@
             android:layout_alignTop="@id/progressbar_Horizontal"
             android:layout_alignRight="@id/progress_horizontal"
             android:layout_alignBottom="@id/progress_horizontal"
-            android:text="4/5"/>
+            android:text="1/5"/>
 
     </RelativeLayout>
-
 
 </LinearLayout>

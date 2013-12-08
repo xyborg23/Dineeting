@@ -23,6 +23,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,9 +33,10 @@ import java.util.List;
 
 public class ContactsActivity extends ActionBarActivity {
 
-    String checkname;
     private static int save = -1;
     ArrayList<String> friends = new ArrayList<String>();
+    ProgressBar myProgressBar;
+    int myProgress = 4;
     public final static String INFO_KEY = "com.example.testapplication.INFO";
 
     @SuppressLint("NewApi")
@@ -43,10 +45,8 @@ public class ContactsActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contacts);
 
-        Intent intent = getIntent();
-        checkname = intent.getStringExtra(MainActivity.NAME_KEY);
-        checkname = checkname.toLowerCase();
-
+        myProgressBar=(ProgressBar)findViewById(R.id.progressbar_Horizontal);
+        myProgressBar.setProgress(myProgress);
         fetchContacts();
     }
 
@@ -91,8 +91,7 @@ public class ContactsActivity extends ActionBarActivity {
 
                 String contact_id = cursor.getString(cursor.getColumnIndex( _ID ));
                 String name = cursor.getString(cursor.getColumnIndex( DISPLAY_NAME ));
-                if(name.toLowerCase().contains(checkname))
-                    items.add(name);
+                items.add(name);
             }
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, items);
 
@@ -120,7 +119,6 @@ public class ContactsActivity extends ActionBarActivity {
         }
     }
     public void submitInfo(View view) {
-        // Do something in response to button
 
         Intent intent = new Intent(this, InfoActivity.class);
         intent.putStringArrayListExtra(INFO_KEY, friends);

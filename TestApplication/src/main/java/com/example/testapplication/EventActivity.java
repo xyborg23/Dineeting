@@ -11,29 +11,27 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.os.Build;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
+import android.widget.Button;
 import android.widget.ProgressBar;
 
-import java.util.ArrayList;
+public class EventActivity extends ActionBarActivity {
 
-public class InfoActivity extends ActionBarActivity {
-    ArrayList<String> friends;
     ProgressBar myProgressBar;
-    int myProgress = 5;
+    int myProgress = 1;
+    public final static String CHOICE_KEY = "com.example.testapplication.CHOICE";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_info);
-
-        Intent intent2 = getIntent();
-        friends = intent2.getStringArrayListExtra(ContactsActivity.INFO_KEY);
+        setContentView(R.layout.activity_event);
 
         myProgressBar=(ProgressBar)findViewById(R.id.progressbar_Horizontal);
         myProgressBar.setProgress(myProgress);
 
-        outputFriends();
+        Button chooseRest = (Button)findViewById(R.id.button1);
+        Button pollFriends = (Button) findViewById(R.id.button2);
+
+
     }
 
 
@@ -41,7 +39,7 @@ public class InfoActivity extends ActionBarActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.info, menu);
+        getMenuInflater().inflate(R.menu.event, menu);
         return true;
     }
 
@@ -57,15 +55,17 @@ public class InfoActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void outputFriends(){
+    public void chooseRestaurant(View v)
+    {
+        Intent intent = new Intent(this, MeetingTimeActivity.class);
+        intent.putExtra(CHOICE_KEY, 1);
+        startActivity(intent);
+    }
 
-        // Get the reference of ListViewAnimals
-        ListView friendList=(ListView)findViewById(R.id.listFriends);
-
-        // Create The Adapter with passing ArrayList as 3rd parameter
-        ArrayAdapter<String> arrayAdapter =
-                new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, friends);
-        // Set The Adapter
-        friendList.setAdapter(arrayAdapter);
+    public void pollingFriends(View v)
+    {
+        Intent intent = new Intent(this, MeetingTimeActivity.class);
+        intent.putExtra(CHOICE_KEY, 2);
+        startActivity(intent);
     }
 }

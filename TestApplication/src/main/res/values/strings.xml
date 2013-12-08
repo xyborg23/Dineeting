@@ -13,4 +13,7 @@
     <string name="meet_date">Meet date</string>
     <string name="vote_deadline_time">Vote deadline time</string>
     <string name="vote_deadline_date">Vote deadline time</string>
+    <string name="title_activity_event">EventActivity</string>
+    <string name="title_activity_restaurant">RestaurantActivity</string>
+
 </resources>

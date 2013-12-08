@@ -1,6 +1,9 @@
 package com.example.testapplication;
 
+import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -11,19 +14,32 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.os.Build;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import java.lang.annotation.Retention;
+import java.util.ArrayList;
 
 public class MainActivity extends ActionBarActivity {
+
+    ArrayList<String> events = new ArrayList<String>();
+    final Context context = this;
 
     public final static String NAME_KEY = "com.example.testapplication.NAME";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        events.add("Lunch today");
+        events.add("Dinner today");
+        events.add("Lunch tomorrow");
+
+        populateEvents();
+
     }
 
 
@@ -51,22 +67,36 @@ public class MainActivity extends ActionBarActivity {
      * Submit Button
      */
     public void submitMessage(View view) {
-        // Do something in response to button
-
-        TextView tv = (TextView) findViewById(R.id.output);
-
-        Intent intent = new Intent(this, ContactsActivity.class);
-        EditText editText = (EditText) findViewById(R.id.name);
-        String message = editText.getText().toString();
-        tv.setText(message);
-        intent.putExtra(NAME_KEY, message);
+        Intent intent = new Intent(this, EventActivity.class);
         startActivity(intent);
-
     }
 
-    public void meetingTime(View v) {
-        Intent intent = new Intent(this, MeetingTimeActivity.class);
-        intent.putExtras(getIntent());
-        startActivity(intent);
+    public void populateEvents()
+    {
+        ListView list = (ListView) findViewById(android.R.id.list);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, events);
+        list.setAdapter(adapter);
+    }
+
+    public void helpMessage(View arg0)
+    {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                context);
+
+        // set title
+        alertDialogBuilder.setTitle("Help");
+
+        // set dialog message
+        alertDialogBuilder
+                .setMessage("Enter the help message here")
+                .setCancelable(false)
+                .setNeutralButton("Close", null);
+
+        // create alert dialog
+        AlertDialog alertDialog = alertDialogBuilder.create();
+
+        // show it
+        alertDialog.show();
     }
 }
+

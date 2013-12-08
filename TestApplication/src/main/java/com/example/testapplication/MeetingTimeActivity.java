@@ -20,6 +20,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TimePicker;
 import android.widget.Toast;
 import android.widget.ToggleButton;
@@ -34,10 +35,20 @@ import java.util.Locale;
 public class MeetingTimeActivity extends ActionBarActivity {
     private final String dateFormat = "a hh:mm-MM/dd/yyyy";
 
+    ProgressBar myProgressBar;
+    int myProgress = 2;
+    int choice;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meeting_time);
+
+        Intent intent = getIntent();
+        choice = intent.getIntExtra(EventActivity.CHOICE_KEY, 1);
+
+        myProgressBar=(ProgressBar)findViewById(R.id.progressbar_Horizontal);
+        myProgressBar.setProgress(myProgress);
 
         // Set dateTime inputs to the current time
         EditText meetHour = (EditText) findViewById(R.id.meetHourInput);
@@ -80,6 +91,7 @@ public class MeetingTimeActivity extends ActionBarActivity {
 
         meetDate.setText(String.valueOf(now.getDay()+1));
         deadlineDate.setText(String.valueOf(now.getDay()+1));
+
     }
 
     @Override
@@ -128,12 +140,21 @@ public class MeetingTimeActivity extends ActionBarActivity {
             return;
         }
 
-        // TODO just brings us back to main
-        Intent nextSettings = new Intent(this, MainActivity.class);
-        nextSettings.putExtra("Meeting Time", meetingDateTime);
-        nextSettings.putExtra("Deadline Time", deadlineDateTime);
+        if(choice == 1)
+        {
+            Intent nextSettings = new Intent(this, RestaurantActivity.class);
+            nextSettings.putExtra("Meeting Time", meetingDateTime);
+            nextSettings.putExtra("Deadline Time", deadlineDateTime);
+            startActivity(nextSettings);
+        }
+        else
+        {
+            Intent nextSettings = new Intent(this, MainActivity.class);
+            nextSettings.putExtra("Meeting Time", meetingDateTime);
+            nextSettings.putExtra("Deadline Time", deadlineDateTime);
+            startActivity(nextSettings);
+        }
 
-        startActivity(nextSettings);
     }
 
     private Date getMeetingTimeInfo() {
