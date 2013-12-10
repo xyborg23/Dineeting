@@ -45,12 +45,21 @@
     </LinearLayout>
 
 
+    <EditText
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:id="@+id/editText1"/>
+
+    <EditText
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:id="@+id/edtResp"/>
+
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="Create new event"
         android:id="@+id/submit"
-        android:onClick="submitMessage"
         android:layout_gravity="center_horizontal|bottom" />
 
 </LinearLayout>

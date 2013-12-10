@@ -38,6 +38,7 @@ public class ContactsActivity extends ActionBarActivity {
     ProgressBar myProgressBar;
     int myProgress = 4;
     public final static String INFO_KEY = "com.example.testapplication.INFO";
+    ArrayList<String> friends2 = new ArrayList<String>();
 
     @SuppressLint("NewApi")
     @Override
@@ -69,6 +70,38 @@ public class ContactsActivity extends ActionBarActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void fetchContacts2()
+    {
+        ListView list = (ListView) findViewById(android.R.id.list);
+        friends2.add("Anne");
+        friends2.add("Alyssa");
+        friends2.add("Daniel");
+        friends2.add("Jobin");
+        friends2.add("Jonathan");
+        friends2.add("Tyler");
+        friends2.add("Vaidehi");
+        friends2.add("William");
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, friends2);
+        list.setAdapter(adapter);
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            ArrayList<Integer> pos = new ArrayList<Integer>();
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position,long arg3) {
+                if(!pos.contains(position))
+                {
+                    parent.getChildAt(position).setBackgroundColor(Color.BLUE);
+                    pos.add(position);
+                }
+                else
+                {
+                    parent.getChildAt(position).setBackgroundColor(Color.TRANSPARENT);
+                    pos.remove(position);
+                }
+            }
+        });
     }
 
     public void fetchContacts() {

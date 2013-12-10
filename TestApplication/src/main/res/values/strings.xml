@@ -7,6 +7,9 @@
     <string name="title_activity_contacts">Contacts</string>
     <string name="title_activity_meeting_time">Meeting Time</string>
     <string name="title_activity_info">InfoActivity</string>
+    <string name="title_restaurant_info"><u>Restaurants</u></string>
+
+    <string name="title_message_info"><u>Messages</u></string>
 
     <!-- Meeting time activity values -->
     <string name="meet_time">Meet time</string>
@@ -15,5 +18,7 @@
     <string name="vote_deadline_date">Vote deadline time</string>
     <string name="title_activity_event">EventActivity</string>
     <string name="title_activity_restaurant">RestaurantActivity</string>
+    <string name="title_activity_vote">VoteActivity</string>
+    <string name="title_activity_messages">MessagesActivity</string>
 
 </resources>

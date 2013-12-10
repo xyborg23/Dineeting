@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0"
-        android:text="Submit"
+        android:text="Add Friends"
         android:onClick="submitInfo"
         android:id="@+id/button" />
 
