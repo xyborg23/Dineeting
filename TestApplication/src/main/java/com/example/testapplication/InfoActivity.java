@@ -18,6 +18,9 @@ import android.widget.ProgressBar;
 import java.util.ArrayList;
 
 public class InfoActivity extends ActionBarActivity {
+    private final String NON_VOTING_EVENT_FORMAT = "sendnonvotingeventinfo %s::%s::%s::%s::%d/%d/%d::%d/%d";
+    private final String VOTING_EVENT_FORMAT = "sendvotingeventinfo %s::%s::%s::%s::%d/%d/%d::%d/%d::%d/%d/%d::%d/%d";
+
     ArrayList<String> friends;
     ProgressBar myProgressBar;
     int myProgress = 5;

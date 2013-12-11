@@ -16,6 +16,7 @@ import android.widget.ProgressBar;
 
 public class EventActivity extends ActionBarActivity {
 
+
     ProgressBar myProgressBar;
     int myProgress = 1;
     public final static String CHOICE_KEY = "com.example.testapplication.CHOICE";

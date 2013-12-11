@@ -48,7 +48,7 @@ public class ContactsActivity extends ActionBarActivity {
 
         myProgressBar=(ProgressBar)findViewById(R.id.progressbar_Horizontal);
         myProgressBar.setProgress(myProgress);
-        fetchContacts();
+        fetchContacts2();
     }
 
 
@@ -104,56 +104,57 @@ public class ContactsActivity extends ActionBarActivity {
         });
     }
 
-    public void fetchContacts() {
-
-        List<String> items = new ArrayList<String>();
-
-        Uri CONTENT_URI = ContactsContract.Contacts.CONTENT_URI;
-        String _ID = ContactsContract.Contacts._ID;
-        String DISPLAY_NAME = ContactsContract.Contacts.DISPLAY_NAME;
-
-        ContentResolver contentResolver = getContentResolver();
-
-        Cursor cursor = contentResolver.query(CONTENT_URI, null,null, null, null);
-        ListView list = (ListView) findViewById(android.R.id.list);
-
-        // Loop for every contact in the phone
-        if (cursor.getCount() > 0) {
-
-            while (cursor.moveToNext()) {
-
-                String contact_id = cursor.getString(cursor.getColumnIndex( _ID ));
-                String name = cursor.getString(cursor.getColumnIndex( DISPLAY_NAME ));
-                items.add(name);
-            }
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, items);
-
-            list.setAdapter(adapter);
-            list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                ArrayList<Integer> pos = new ArrayList<Integer>();
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position,long arg3) {
-
-                    String contactname = ((TextView) view).getText().toString();
-                    if(!pos.contains(position))
-                    {
-                        parent.getChildAt(position).setBackgroundColor(Color.YELLOW);
-                        pos.add(position);
-                        friends.add(contactname);
-                    }
-                    else
-                    {
-                        parent.getChildAt(position).setBackgroundColor(Color.TRANSPARENT);
-                        pos.remove(position);
-                        friends.remove(contactname);
-                    }
-                }
-            });
-        }
-    }
+//    public void fetchContacts() {
+//
+//        List<String> items = new ArrayList<String>();
+//
+//        Uri CONTENT_URI = ContactsContract.Contacts.CONTENT_URI;
+//        String _ID = ContactsContract.Contacts._ID;
+//        String DISPLAY_NAME = ContactsContract.Contacts.DISPLAY_NAME;
+//
+//        ContentResolver contentResolver = getContentResolver();
+//
+//        Cursor cursor = contentResolver.query(CONTENT_URI, null,null, null, null);
+//        ListView list = (ListView) findViewById(android.R.id.list);
+//
+//        // Loop for every contact in the phone
+//        if (cursor.getCount() > 0) {
+//
+//            while (cursor.moveToNext()) {
+//
+//                String contact_id = cursor.getString(cursor.getColumnIndex( _ID ));
+//                String name = cursor.getString(cursor.getColumnIndex( DISPLAY_NAME ));
+//                items.add(name);
+//            }
+//            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, items);
+//
+//            list.setAdapter(adapter);
+//            list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//                ArrayList<Integer> pos = new ArrayList<Integer>();
+//                @Override
+//                public void onItemClick(AdapterView<?> parent, View view, int position,long arg3) {
+//
+//                    String contactname = ((TextView) view).getText().toString();
+//                    if(!pos.contains(position))
+//                    {
+//                        parent.getChildAt(position).setBackgroundColor(Color.YELLOW);
+//                        pos.add(position);
+//                        friends.add(contactname);
+//                    }
+//                    else
+//                    {
+//                        parent.getChildAt(position).setBackgroundColor(Color.TRANSPARENT);
+//                        pos.remove(position);
+//                        friends.remove(contactname);
+//                    }
+//                }
+//            });
+//        }
+//    }
     public void submitInfo(View view) {
 
         Intent intent = new Intent(this, InfoActivity.class);
+        intent.putExtras(getIntent());
         intent.putStringArrayListExtra(INFO_KEY, friends);
         startActivity(intent);
     }
